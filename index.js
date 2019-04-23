@@ -5,6 +5,7 @@ Toolkit.run(
   async tools => {
     const repo = await tools.github.repos.get(tools.context.repo);
     const defaultBranch = repo.data.default_branch;
+    tools.log.info(defaultBranch, tools.context.ref);
     if (defaultBranch !== tools.context.ref)
       tools.exit.neutral('This is not the default branch.');
 
