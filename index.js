@@ -14,7 +14,7 @@ Toolkit.run(
       await tools.github.repos.getContents({
         ...tools.context.repo,
         ref: tools.context.payload.before,
-        // path: './package.json',
+        path: '',
       }),
     );
     const oldPkg = JSON.parse(
