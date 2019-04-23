@@ -10,12 +10,19 @@ Toolkit.run(
       tools.exit.neutral('This is not the default branch.');
 
     const pkg = tools.getPackageJSON();
-    const oldPkg = JSON.parse(
+    tools.log.info(
       await tools.github.repos.getContents({
         ...tools.context.repo,
         ref: tools.context.payload.before,
-        path: 'package.json',
+        path: './package.json',
       }),
+    );
+    const oldPkg = JSON.parse(
+      (await tools.github.repos.getContents({
+        ...tools.context.repo,
+        ref: tools.context.payload.before,
+        path: './package.json',
+      }))[0],
     );
     tools.log.info('Current package.json', pkg);
     tools.log.info('old one', oldPkg);
