@@ -1,5 +1,6 @@
 const { Toolkit } = require('actions-toolkit');
 const { decode } = require('base-64');
+const equal = require('deep-equal');
 
 // Run your GitHub Action!
 Toolkit.run(
@@ -20,13 +21,13 @@ Toolkit.run(
         })).data.content,
       ),
     );
-    tools.log.info('Current package.json', pkg);
-    tools.log.info('old one', oldPkg);
+    tools.log.info('Current package.json', pkg.dependencies);
+    tools.log.info('old one', oldPkg.devDependencies);
 
-    if (!Object.is(pkg.dependencies, oldPkg.dependencies))
+    if (!equal(pkg.dependencies, oldPkg.dependencies, { strict: true }))
       tools.exit.success('Changed prod dependencies.');
 
-    if (!Object.is(pkg.devDependencies, oldPkg.devDependencies))
+    if (!equal(pkg.devDependencies, oldPkg.devDependencies, { strict: true }))
       tools.exit.success('Changed dev dependencies');
 
     tools.exit.neutral('No changes');
