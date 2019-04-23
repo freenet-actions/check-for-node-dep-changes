@@ -5,17 +5,17 @@ Toolkit.run(
   async tools => {
     const repo = await tools.github.repos.get(tools.context.repo);
     const defaultBranch = repo.data.default_branch;
-    tools.log.info(defaultBranch, tools.context.ref);
+
     if (`refs/heads/${defaultBranch}` !== tools.context.ref)
       tools.exit.neutral('This is not the default branch.');
 
     const pkg = tools.getPackageJSON();
     tools.log.info(
-      await tools.github.repos.getContents({
+      (await tools.github.repos.getContents({
         ...tools.context.repo,
         ref: tools.context.payload.before,
         path: 'package.json',
-      }).data[0],
+      })).data[0],
     );
     const oldPkg = JSON.parse(
       (await tools.github.repos.getContents({
