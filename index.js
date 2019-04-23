@@ -1,4 +1,5 @@
 const { Toolkit } = require('actions-toolkit');
+const { decode } = require('base-64');
 
 // Run your GitHub Action!
 Toolkit.run(
@@ -15,14 +16,16 @@ Toolkit.run(
         ...tools.context.repo,
         ref: tools.context.payload.before,
         path: 'package.json',
-      }),
+      }).data.content,
     );
     const oldPkg = JSON.parse(
-      (await tools.github.repos.getContents({
-        ...tools.context.repo,
-        ref: tools.context.payload.before,
-        path: 'package.json',
-      })).data[0],
+      decode(
+        (await tools.github.repos.getContents({
+          ...tools.context.repo,
+          ref: tools.context.payload.before,
+          path: 'package.json',
+        })).data.content,
+      ),
     );
     tools.log.info('Current package.json', pkg);
     tools.log.info('old one', oldPkg);
