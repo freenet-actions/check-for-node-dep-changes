@@ -12,11 +12,11 @@ Toolkit.run(
 
     const pkg = tools.getPackageJSON();
     tools.log.info(
-      await tools.github.repos.getContents({
+      (await tools.github.repos.getContents({
         ...tools.context.repo,
         ref: tools.context.payload.before,
         path: 'package.json',
-      }).data.content,
+      })).data.content,
     );
     const oldPkg = JSON.parse(
       decode(
