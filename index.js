@@ -21,8 +21,8 @@ Toolkit.run(
         })).data.content,
       ),
     );
-    tools.log.info('Current package.json', pkg.dependencies);
-    tools.log.info('old one', oldPkg.devDependencies);
+    tools.log.info('Current package.json', pkg);
+    tools.log.info('old one', oldPkg);
 
     if (!equal(pkg.dependencies, oldPkg.dependencies, { strict: true }))
       tools.exit.success('Changed prod dependencies.');
