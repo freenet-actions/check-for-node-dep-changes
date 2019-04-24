@@ -5,12 +5,6 @@ const equal = require('deep-equal');
 // Run your GitHub Action!
 Toolkit.run(
   async tools => {
-    const repo = await tools.github.repos.get(tools.context.repo);
-    const defaultBranch = repo.data.default_branch;
-
-    if (`refs/heads/${defaultBranch}` !== tools.context.ref)
-      tools.exit.neutral('This is not the default branch.');
-
     const pkg = tools.getPackageJSON();
     const oldPkg = JSON.parse(
       decode(
