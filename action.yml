@@ -1,0 +1,11 @@
+name: 'Check for npm dependency changes'
+description: 'Checks package.json for changes of dependencies (dev and normal)'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+
+outputs:
+  normal_dependencies_changed:
+    description: 'Boolean that determines if "normal" dependencies have changed'
+  dev_dependencies_changed:
+    description: 'Boolean that determines if dev dependencies have changed'

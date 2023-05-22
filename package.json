@@ -1,8 +1,9 @@
 {
-  "name": "my-cool-action",
+  "name": "check-for-node-dep-changes",
   "private": true,
   "main": "index.js",
   "scripts": {
+    "build": "ncc build index.js --minify",
     "start": "node ./index.js",
     "lint": "prettier index.js README.md LICENSE.md package.json --write"
   },
@@ -12,6 +13,7 @@
     "deep-equal": "^1.0.1"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.36.1",
     "prettier": "^1.17.0"
   }
 }
